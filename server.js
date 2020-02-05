@@ -9,5 +9,8 @@ app.get('/', (req, res) => {
 });
 
 let rawdata = fs.readFileSync('data.json');
+let todoList = JSON.parse(rawdata); // convert to JSON
+
+console.log(todoList);
 
 app.listen(3000, ()=> console.log('App listening on port 3000'));
