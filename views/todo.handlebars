@@ -1,8 +1,10 @@
 <div>
   Test
   <ul>
-    {{#each todoList.object}} 
-      <li> {{name}} </li>
+    {{#each todoList}} 
+      <li>
+        {{name}}: {{completed}}
+      </li>
     {{/each}}
   </ul>
 </div>
