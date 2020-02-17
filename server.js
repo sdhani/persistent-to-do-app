@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs'); /* Node JS Read + Write Module */
-const hbs = require('hbs');
+const hbs = require('handlebars');
 
 const app = express();
 
