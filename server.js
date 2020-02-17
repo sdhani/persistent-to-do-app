@@ -5,8 +5,8 @@ const hbs = require('hbs');
 
 const app = express();
 
-let rawdata = fs.readFileSync('data.json');
-let todoList = JSON.parse(rawdata); // convert to JSON
+let data = fs.readFileSync('data.json');
+let todoList = JSON.parse(data); // convert to JSON
 
 console.log(todoList);
 
