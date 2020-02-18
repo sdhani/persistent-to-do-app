@@ -1,5 +1,6 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
+const axios = require('axios');
 const path = require('path');
 const fs = require('fs');  /* read/write */
 
@@ -14,9 +15,21 @@ let todoList = JSON.parse(data); // convert to JSON
 console.log(todoList);
 
 
-/* Routes */
+/* static data */
+// app.get('/', (req, res) => {
+//   res.render('todo', { todoList: todoList });
+// });
+
 app.get('/', (req, res) => {
-  res.render('todo', { todoList: todoList });
+  res.render('home');
+});
+
+const TODO_API_URL = 'https://hunter-todo-api.herokuapp.com';
+
+app.get('/users', (req, res) => {
+  axios.get(TODO_API_URL + '/user').then((response) => {
+    res.render('user-list', { users: response.data });
+  });
 });
 
 
