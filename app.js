@@ -1,7 +1,7 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const axios = require('axios');
-const path = require('path');
+// const path = require('path');
 const fs = require('fs');  /* read/write */
 
 const app = express();
@@ -32,6 +32,11 @@ app.get('/users', (req, res) => {
   });
 });
 
+app.get('/username', (req, res) => {
+  axios.get(TODO_API_URL + '/user?username=').then((response) => {
+    res.render('todo', { todoList: response.data });
+  });
+});
 
 /* 404 Error */
 app.use((req, res) => {
