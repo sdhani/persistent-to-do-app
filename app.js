@@ -1,7 +1,6 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const axios = require('axios');
-// const path = require('path');
 const fs = require('fs');  /* read/write */
 
 const app = express();
@@ -15,10 +14,6 @@ let todoList = JSON.parse(data); // convert to JSON
 console.log(todoList);
 
 
-/* static data */
-// app.get('/', (req, res) => {
-//   res.render('todo', { todoList: todoList });
-// });
 
 app.get('/', (req, res) => {
   res.render('home');
@@ -32,9 +27,15 @@ app.get('/users', (req, res) => {
   });
 });
 
+app.post('/', (req, res) => {
+  axios.post(TODO_API_URL + '/user').then((response) => {
+    res.render('user-list', { users: response.data });
+  });
+});
+
 app.get('/username', (req, res) => {
   axios.get(TODO_API_URL + '/user?username=').then((response) => {
-    res.render('todo', { todoList: response.data });
+    res.render('todo', { todo: response.data });
   });
 });
 
