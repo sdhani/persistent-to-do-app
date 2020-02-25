@@ -22,25 +22,37 @@ Router.get('/login', async (req, res, next) => {
   catch (err) { console.log(err); }
 });
 
+Router.post('/login', async (req, res, next) => {
+  const { username } = req.body;
+  
+  try{
+    const response = await axios.get(`${TODO_API_URL}/auth`, {
+      username : username
+    });
+
+    res.status(200).json(response.data);
+  }
+  catch (err) { console.log(err); }
+});
+
 /* Render register-user page */
 Router.get('/register', async (req, res, next) => {
   try { res.render('register-user'); } 
   catch (err) { console.log(err); }
 });
 
-/* Register User */
+
+/* Register user */
 Router.post('/register', async (req, res) => {
   const { username } = req.body;
   try{
-    const response = await axios.get(`${TODO_API_URL}/user`, {
+    const response = await axios.post(`${TODO_API_URL}/user`, {
       username: username
     });
-
-    console.log("Registered! :D");
+    // console.log("Registered! :D", response.data);
     res.status(200).json(response.data);
   }
   catch (err) { console.log(err); }
 });
-
 
 module.exports = Router;
