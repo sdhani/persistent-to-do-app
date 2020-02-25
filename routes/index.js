@@ -2,23 +2,35 @@
 const Router = require('express').Router();
 
 /* GET landing page */
-Router.get('/', (req, res) => {
-  res.setHeader('Set-Cookie', ['', '']);
+Router.get('/', async (req, res, next) => {
+    try {
+      let currUser =
+        req.signedCookies.user !== undefined
+          ? req.signedCookies.user
+          : "Not Logged In";
+      res.render("index", { user: currUser });
+    } catch (err) {
+      console.log(err);
+    }
 });
 
 
-Router.get('/login', (req, res) => {
-  req.setHeader('Set-Cookie', [''], ['']);
+// gets user form for login
+Router.get("/login", async (req, res, next) => {
+	try {
+		res.render("login");
+	} catch (err) {
+		console.log(err);
+	}
 });
 
-Router.get('/users', (req, res) => {
-
-});
-
-/* Catch all routes that don't have an endpoint */
-Router.use('*', (req, res) => {
-  // res.status(200).send("Loaded server :)");
-  console.log("404 Not Found");
+// gets user form for signup
+Router.get("/register", async (req, res, next) => {
+	try {
+		res.render("register-user");
+	} catch (err) {
+		console.log(err);
+	}
 });
 
 module.exports = Router;

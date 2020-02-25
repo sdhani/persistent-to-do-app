@@ -1,43 +1,37 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
-const axios = require('axios');
 const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const logger = require('morgan');
 const fs = require('fs');  /* read/write */
+
 const app = express();
 
-app.use(cookieParser());
+const USERS_ROUTES =  require("./routes/users");
+const INDEX_ROUTES = require("./routes/index");
+const AUTH_ROUTES = require("./routes/auth");
+const TODO_ROUTES = require("./routes/todos");
+
 app.engine('handlebars', exphbs());
+
 app.set('view engine', 'handlebars');
 
+app.use(logger("dev"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 
-app.get("/", function(req, res) {
-  res.render("home");
-});
+app.use("/", INDEX_ROUTES);
+app.use("/users", USERS_ROUTES);
+app.use("/auth", AUTH_ROUTES);
+app.use("/todos", TODO_ROUTES);
 
-const TODO_API_URL = "https://hunter-todo-api.herokuapp.com";
-
-app.get('/users', function(req, res) {
-  axios.get(TODO_API_URL + '/user').then((response) => {
-    res.render("user-list", { users: response.data });
-  });
-});
-
-app.post('/register', function(req, res) {
-  axios.post(TODO_API_URL + '/user').then((response) => {
-    res.cookie("userData", users);
-    res.send('user data added to cookie');
-  })
-});
-
-app.get('/logout', (req, res) => {
-  res.clearCookie('userData');
-  res.send('user logout successfully');
-});
-
-
-/* 404 Error */
-app.use('*', (req, res) => {
-  console.log("404 Not Found");
+hbs.registerHelper('if_eq', function(a, b, opts) {
+  if (a == b) {
+      return opts.fn(this);
+  } else {
+      return opts.inverse(this);
+  }
 });
 
 app.listen(3000, () => console.log('App listening on port 3000'));
