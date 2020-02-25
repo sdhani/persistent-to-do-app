@@ -26,11 +26,20 @@ Router.post('/login', async (req, res, next) => {
   const { username } = req.body;
   
   try{
-    const response = await axios.get(`${TODO_API_URL}/auth`, {
+    const userToken = await axios.post(`${TODO_API_URL}/auth`, {
       username : username
     });
 
-    res.status(200).json(response.data);
+    if(userToken.data.token){
+      res.cookie('Authentication', userToken.data.token);
+      res.status(200).json(userToken.data); /* debugging */
+    }
+    
+    /* NEED TO HANDLE USER NOT IN DATABASE */
+    if(userToken.data.error){
+      console.log('invalid username :/');
+    }
+   
   }
   catch (err) { console.log(err); }
 });
@@ -49,8 +58,9 @@ Router.post('/register', async (req, res) => {
     const response = await axios.post(`${TODO_API_URL}/user`, {
       username: username
     });
-    // console.log("Registered! :D", response.data);
-    res.status(200).json(response.data);
+    
+    console.log("Registered! :D");
+    res.status(200).json(response.data); /* debugging */
   }
   catch (err) { console.log(err); }
 });
