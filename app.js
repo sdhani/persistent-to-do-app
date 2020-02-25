@@ -26,14 +26,14 @@ let users = {
 
 app.
 
-app.route('/register').post((req, res) => {
+app.post('/register', (req, res) => {
   var username = req.body.username;
   axios.post('https://hunter-todo-api.herokuapp.com/user', {
     username: username
   });
 })
 
-app.route('/login').get((req, res) => {
+app.get('/login', (req, res) => {
   var username = req.body.username;
   res.cookie("userData", username);
 
