@@ -2,16 +2,13 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const axios = require('axios');
 const fs = require('fs');  /* read/write */
+var cookieParser = require('cookie-parser');
 
 const app = express();
 
+app.use(cookieParser());
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
-
-/* Synchronized read of data JSON */
-let data = fs.readFileSync('data.json');
-let todoList = JSON.parse(data); // convert to JSON
-console.log(todoList);
 
 
 
@@ -28,9 +25,7 @@ app.get('/users', (req, res) => {
 });
 
 app.post('/', (req, res) => {
-  axios.post(TODO_API_URL + '/user').then((response) => {
-    res.render('user-list', { users: response.data });
-  });
+  axios.post(TODO_API_URL + '/user', {"username": ""});
 });
 
 app.get('/username', (req, res) => {
@@ -45,6 +40,11 @@ app.use((req, res) => {
   console.log('Content requested not found.');
 });
 
-app.listen(3000, ()=> console.log('App listening on port 3000'));
+app.listen(3000, () => console.log('App listening on port 3000'));
 
 module.exports = app;
+
+/* Synchronized read of data JSON */
+// let data = fs.readFileSync('data.json');
+// let todoList = JSON.parse(data); // convert to JSON
+// console.log(todoList);
