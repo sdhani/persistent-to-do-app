@@ -31,15 +31,18 @@ Router.post('/login', async (req, res, next) => {
     });
 
     if(userToken.data.token){
-      res.cookie('Authentication', userToken.data.token);
-      res.status(200).json(userToken.data); /* debugging */
+      res.cookie('Authentication', userToken.data.token, {
+        httpOnly: true
+      });
+      res.cookie("userData", req.body.username, {
+        httpOnly: true
+      });
+
+      // res.status(200).json(userToken.data); /* debugging */
     }
+		res.status(200).redirect("/");
     
     /* NEED TO HANDLE USER NOT IN DATABASE */
-    if(userToken.data.error){
-      console.log('invalid username :/');
-    }
-   
   }
   catch (err) { console.log(err); }
 });
@@ -49,7 +52,6 @@ Router.get('/register', async (req, res, next) => {
   try { res.render('register-user'); } 
   catch (err) { console.log(err); }
 });
-
 
 /* Register user */
 Router.post('/register', async (req, res) => {
@@ -63,6 +65,14 @@ Router.post('/register', async (req, res) => {
     res.status(200).json(response.data); /* debugging */
   }
   catch (err) { console.log(err); }
+});
+
+Router.get('/todo', (req, res) => {
+  if(req.user){
+    res.render('todo');
+  } else{
+    console.log('Please login to continue');
+  }
 });
 
 module.exports = Router;
