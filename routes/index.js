@@ -41,7 +41,7 @@ Router.post('/login', async (req, res, next) => {
 Router.get('/logout', async(req, res, next) => {
   try {
     res.clearCookie('Authentication');
-    res.clearCookie('userData');
+    // res.clearCookie('userData');
     res.status(200).redirect('/');
     console.log('Logged Out :)');
   }
