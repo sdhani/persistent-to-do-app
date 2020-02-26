@@ -24,25 +24,26 @@ Router.get('/login', async (req, res, next) => {
 
 Router.post('/login', async (req, res, next) => {
   const { username } = req.body;
-  
   try{
     const userToken = await axios.post(`${TODO_API_URL}/auth`, {
       username : username
     });
 
     if(userToken.data.token){
-      res.cookie('Authentication', userToken.data.token, {
-        httpOnly: true
-      });
-      res.cookie("userData", req.body.username, {
-        httpOnly: true
-      });
-
-      // res.status(200).json(userToken.data); /* debugging */
+      res.cookie('Authentication', userToken.data.token, { httpOnly: true });
+      res.cookie("userData", req.body.username, { httpOnly: true });
     }
 		res.status(200).redirect("/");
-    
-    /* NEED TO HANDLE USER NOT IN DATABASE */
+  }
+  catch (err) { console.log(err); }
+});
+
+Router.get('/logout', async(req, res, next) => {
+  try {
+    res.clearCookie('Authentication');
+    res.clearCookie('userData');
+    res.status(200).redirect('/');
+    console.log('Logged Out :)');
   }
   catch (err) { console.log(err); }
 });
