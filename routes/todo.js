@@ -1,32 +1,33 @@
+/* routes/todo.js */
 const Router = require("express").Router();
 const axios = require("axios");
 const TODO_API_URL = "https://hunter-todo-api.herokuapp.com";
 
 Router.get('/', async (req, res, next) => {
-	const token = req.cookies['Authentication'];
-	if(token){
-		try{
+	const { Authentication } = req.cookies;
+	if(token) {
+		try {
 			const response = await axios.get(`${TODO_API_URL}/todo-item`, { 
 				headers: {
-					Cookie: `token=${token}`
+					Cookie: `token=${Authentication}`
 				}
 			});
 			res.status(200).render('todo', { todoList: response.data });
 		}
 		catch (err) { console.log(err); }
-	}else{
+	} else {
 		res.render('error');
 	}
 });
 
 /* GET Todo-Item By ID */
 Router.get('/:id', async (req, res, next) => {
-	const token = req.cookies['Authentication'];
+	const { Authentication } = req.cookies;
 	console.log("Req", req.params.id);
-	try{
+	try {
 		const response = await axios.get(`${TODO_API_URL}/todo-item/${req.params.id}`, {
 			headers: {
-				Cookie: `token=${token}`
+				Cookie: `token=${Authentication}`
 			}
 		});
 		res.status(200).json(response.data);
@@ -34,4 +35,11 @@ Router.get('/:id', async (req, res, next) => {
 	catch (err) { console.log(err); }
 });
 
+/* POST New Todo-Item */
+Router.post('/', async(req, res, next) => {
+	const { Authentication } = req.cookies;
+	
+});
+
 module.exports = Router;
+

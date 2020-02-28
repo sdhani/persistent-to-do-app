@@ -22,7 +22,7 @@ Router.get('/register', async (req, res, next) => {
 /* POST New User To API */
 Router.post('/register', async (req, res) => {
   const { username } = req.body;
-  try{
+  try {
     const response = await axios.post(`${TODO_API_URL}/user`, {
       username: username
     });
