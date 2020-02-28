@@ -3,7 +3,7 @@ const Router = require('express').Router();
 const axios = require("axios");
 const TODO_API_URL = "https://hunter-todo-api.herokuapp.com";
 
-/* GET landing page */
+/* GET Landing Page */
 Router.get('/', async (req, res, next) => {
   try {
     let curr_user =
@@ -16,13 +16,14 @@ Router.get('/', async (req, res, next) => {
 });
 
 
-/* Render login page */
+/* GET Login Page */
 Router.get('/login', async (req, res, next) => {
   try { res.render('login'); } 
   catch (err) { console.log(err); }
 });
 
 
+/* POST Login User */
 Router.post('/login', async (req, res, next) => {
   const { username } = req.body;
   try{
@@ -36,6 +37,7 @@ Router.post('/login', async (req, res, next) => {
 });
 
 
+/* GET Logout User */
 Router.get('/logout', async(req, res, next) => {
   try {
     res.clearCookie('Authentication');
@@ -47,14 +49,14 @@ Router.get('/logout', async(req, res, next) => {
 });
 
 
-/* Render register-user page */
+/* GET Register-User Page */
 Router.get('/register', async (req, res, next) => {
   try { res.render('register-user'); } 
   catch (err) { console.log(err); }
 });
 
 
-/* Register user */
+/* POST New User To API */
 Router.post('/register', async (req, res) => {
   const { username } = req.body;
   try{
@@ -67,7 +69,6 @@ Router.post('/register', async (req, res) => {
   }
   catch (err) { console.log(err); }
 });
-
 
 
 module.exports = Router;
