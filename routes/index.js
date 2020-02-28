@@ -84,34 +84,5 @@ Router.get('/todo', async (req, res, next) => {
   
 });
 
-  // try {
-  //   const response = await axios.get(`${TODO_API_URL}/todo-item`, {
-  //     headers: {
-  //       cookie: token
-  //     }
-  //   });
-
-  //   console.log(response.body.cookie);
-  // }
-  // catch (err) { console.log(err); }
-	// try {
-	// 	if (token === undefined) {
-  //     res.status(401).send("Error. User not authenticated.");
-	// 	} else {
-  //     console.log('success-ish', token);
-	// 		const userList = await axios.get(`${TODO_API_URL}/todo-item`, {
-	// 			headers: {
-	// 				Cookie: `token=${token}`
-	// 			}
-  //     });
-  //     console.log('success-ish', token);
-      
-  //     res.render('todo', { todoList: userList.data });
-	// 		// res.status(200).render('todo', { todoList: userList.data.filter(x=> !x.deleted) });
-	// 	}
-  // } 
-  
-  // catch (err) { console.log(err); }
-// });
 
 module.exports = Router;
