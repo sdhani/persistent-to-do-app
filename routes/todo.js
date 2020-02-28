@@ -3,16 +3,20 @@ const axios = require("axios");
 const TODO_API_URL = "https://hunter-todo-api.herokuapp.com";
 
 Router.get('/', async (req, res, next) => {
-  const token = req.cookies['Authentication'];
-  try{
-    const response = await axios.get(`${TODO_API_URL}/todo-item`, { 
-      headers: {
-        Cookie: `token=${token}`
-      }
-    });
-    res.status(200).render('todo', { todoList: response.data });
-  }
-  catch (err) { console.log(err); }
+	const token = req.cookies['Authentication'];
+	if(token){
+		try{
+			const response = await axios.get(`${TODO_API_URL}/todo-item`, { 
+				headers: {
+					Cookie: `token=${token}`
+				}
+			});
+			res.status(200).render('todo', { todoList: response.data });
+		}
+		catch (err) { console.log(err); }
+	}else{
+		res.render('error');
+	}
 });
 
 /* GET Todo-Item By ID */
