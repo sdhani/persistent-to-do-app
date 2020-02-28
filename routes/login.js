@@ -20,8 +20,8 @@ Router.post('/', async (req, res, next) => {
     res.status(200).redirect('/todo');
   }
   catch (err) { 
-    // console.log(err); 
-    res.status(400).send('User does not exist. Please register user OR log in as a different user.');
+    res.status(400).render('login', 
+    { message: 'User does not exist. Please register user OR log in as a different user.' });
   }
 });
 
