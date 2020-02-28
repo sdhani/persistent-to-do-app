@@ -2,37 +2,35 @@ const Router = require("express").Router();
 const axios = require("axios");
 const TODO_API_URL = "https://hunter-todo-api.herokuapp.com";
 
-Router.post("/login", async(req,res,next)=>{
-	try {
-		const res = await axios.post(`${TODO_API_URL}/auth`, {
-			username: req.body.username
-		});
-
-		res.cookie("Authentication", res.data.token, {
-			signed: true,
-			httpOnly: true
-		});
-
-		res.cookie("userData", req.body.username, {
-			signed: true,
-			httpOnly: true
-		});
-
-		// res.render('login', {user: res.body.username});
-		res.status(200).redirect("/");
-  } 
+/* GET Login Page */
+Router.get('/login', async (req, res, next) => {
+  try { res.render('login'); } 
   catch (err) { console.log(err); }
 });
 
 
-Router.get("/logout", async(req,res,next)=>{
-	try {
-		res.clearCookie("Authentication"); // delete cookie
-		res.clearCookie("userData");
-		res.status(200).redirect("/");
-		console.log("logout successfully");
-  } 
+/* POST Login User */
+Router.post('/login', async (req, res, next) => {
+  const { username } = req.body;
+  try{
+    const userToken = await axios.post(`${TODO_API_URL}/auth`, {
+      username : username
+    });
+    res.cookie('Authentication', userToken.data.token, { httpOnly: true });
+    res.status(200).json(userToken.data);
+  }
   catch (err) { console.log(err); }
-})
+});
+
+
+/* GET Logout User  | Requires a Refresh to Update Cookies, redirect is not sufficient */
+Router.get('/logout', async(req, res, next) => {
+  try {
+    res.clearCookie('Authentication');
+    console.log('Logged Out :)');
+    res.status(200).redirect('login');
+  }
+  catch (err) { console.log(err); }
+});
 
 module.exports = Router;
