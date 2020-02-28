@@ -3,4 +3,10 @@
   {{#each todoList}} 
     <li>{{id}}|{{content}} | {{completed}} | {{deleted}} | {{user_id}}</li>
   {{/each}}
+
+  <form method="POST" action="/todo">
+    <label for="content">Add New Todo:</label>
+    <input type="text" id="content" name="content"/>
+    <input type="submit"/>
+  </form>
 </ul>

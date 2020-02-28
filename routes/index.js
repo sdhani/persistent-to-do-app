@@ -23,9 +23,7 @@ Router.get('/register', async (req, res, next) => {
 Router.post('/register', async (req, res) => {
   const { username } = req.body;
   try {
-    const response = await axios.post(`${TODO_API_URL}/user`, {
-      username: username
-    });
+    const response = await axios.post(`${TODO_API_URL}/user`, { username });
     
     console.log("Registered! :D");
     res.status(200).json(response.data); /* debugging */

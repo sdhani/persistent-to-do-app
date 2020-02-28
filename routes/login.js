@@ -16,10 +16,18 @@ Router.post('/', async (req, res, next) => {
     const userToken = await axios.post(`${TODO_API_URL}/auth`, {
       username : username
     });
+
+    /* User does not exist. Please register user OR check for a typo */
+    
+    
     res.cookie('Authentication', userToken.data.token, { httpOnly: true });
     res.status(200).redirect('/todo');
+    
   }
-  catch (err) { console.log(err); }
+  catch (err) { 
+    // console.log(err); 
+    res.status(400).send('User does not exist. Please register user OR log in as a different user.');
+  }
 });
 
 module.exports = Router;
