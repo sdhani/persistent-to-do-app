@@ -17,7 +17,7 @@ Router.post('/', async (req, res, next) => {
       username : username
     });
     res.cookie('Authentication', userToken.data.token, { httpOnly: true });
-    res.status(200).json(userToken.data);
+    res.status(200).redirect('/todo');
   }
   catch (err) { console.log(err); }
 });
