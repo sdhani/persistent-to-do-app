@@ -21,13 +21,15 @@ Router.get('/', async (req, res, next) => {
 
 /* GET Todo-Item By ID */
 Router.get('/:id', async (req, res, next) => {
+	const token = req.cookies['Authentication'];
+	console.log("Req", req.params.id);
 	try{
-		const response = await axios.get(`${TODO_API_URL}/todo-item/:id`, {
+		const response = await axios.get(`${TODO_API_URL}/todo-item/${req.params.id}`, {
 			headers: {
 				Cookie: `token=${token}`
 			}
 		});
-		res.status(200).render('todo', { todoList: response.data });
+		res.status(200).json(response.data);
 	}
 	catch (err) { console.log(err); }
 });
