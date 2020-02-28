@@ -15,14 +15,9 @@ Router.post('/', async (req, res, next) => {
   try{
     const userToken = await axios.post(`${TODO_API_URL}/auth`, {
       username : username
-    });
-
-    /* User does not exist. Please register user OR check for a typo */
-    
-    
+    });    
     res.cookie('Authentication', userToken.data.token, { httpOnly: true });
     res.status(200).redirect('/todo');
-    
   }
   catch (err) { 
     // console.log(err); 
