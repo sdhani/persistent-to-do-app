@@ -10,7 +10,6 @@ const app = express();
 /* Routes */
 const INDEX_ROUTES = require("./routes/index");
 // const AUTH_ROUTES = require("./routes/auth");
-// const USERS_ROUTES =  require("./routes/users");
 const TODO_ROUTES = require("./routes/todo");
 
 /* Set view */
@@ -20,12 +19,6 @@ app.engine('hbs', exphbs({
 
 app.set('view engine', 'hbs');
 
-// app.use((req, res, next) => {
-//   const authToken = req.cookies('Authentication');
-//   req.user = authToken;
-//   next();
-// });
-
 app.use(logger("dev")); /* Use dev tools */
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -33,7 +26,6 @@ app.use(cookieParser()); /* Parse cookie */
 
 app.use("/", INDEX_ROUTES);
 // app.use("/auth", AUTH_ROUTES);
-// app.use("/users", USERS_ROUTES);
 app.use("/todo", TODO_ROUTES);
 
 app.listen(3000, () => console.log('App listening on port 3000'));

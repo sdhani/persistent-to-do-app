@@ -10,11 +10,10 @@ Router.get('/', async (req, res, next) => {
         Cookie: `token=${token}`
       }
     });
-
     res.status(200).render('todo', { todoList: response.data });
   }
   catch (err) { console.log(err); }
-  
 });
+
 
 module.exports = Router;
