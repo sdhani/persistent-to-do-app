@@ -34,4 +34,14 @@ Router.post('/register', async (req, res) => {
 });
 
 
+/* GET Logout User  | Requires a Refresh to Update Cookies, redirect is not sufficient */
+Router.get('/logout', async(req, res, next) => {
+  try {
+    res.clearCookie('Authentication');
+    console.log('Logged Out :)');
+    res.status(200).redirect('login');
+  }
+  catch (err) { console.log(err); }
+});
+
 module.exports = Router;
