@@ -69,20 +69,5 @@ Router.post('/register', async (req, res) => {
 });
 
 
-Router.get('/todo', async (req, res, next) => {
-  const token = req.cookies['Authentication'];
-  try{
-    const response = await axios.get(`${TODO_API_URL}/todo-item`, { 
-      headers: {
-        Cookie: `token=${token}`
-      }
-    });
-
-    res.status(200).render("todo", { todoList: response.data });
-  }
-  catch (err) { console.log(err); }
-  
-});
-
 
 module.exports = Router;
