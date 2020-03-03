@@ -1,14 +1,14 @@
-## Persistent-To-Do-App
+# Persistent-To-Do-App
 A web application that keep's track of a specific user's to-do list even after refreshing the page or making changes to the list. 
 
 ---
 
-### Hosted on Heroku
+## Hosted on Heroku
 This project is hosted on Heroku at [Persistent-To-Do-App](https://sleepy-stream-81012.herokuapp.com/)
 
 ---
 
-### ***Want to run the code instead?***
+## ***Want to run the code instead?***
 #### Install Instructions
 
 1. Clone this Repository:
