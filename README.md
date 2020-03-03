@@ -3,7 +3,7 @@
 Static Page Hosted at https://sdhani.github.io/Persistent-To-Do-App/
 
 ## Hosted on Heroku: 
-- [link_to_be_updated]()
+- [Persistent-To-Do-App](https://sleepy-stream-81012.herokuapp.com/)
 
 ## ***Want to run the code instead?***
 #### Install Instructions
