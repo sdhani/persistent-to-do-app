@@ -3,12 +3,16 @@
 <h1>To Do List:</h1>
 <p>{{message}}</p>
 <ul>
-  {{#each todoList as |item|}} 
+  {{#each todoList}} 
     {{!-- Item Info --}}
-    <li>{{item.id}} | {{item.content}} | Done:{{item.completed}}</li>
+    <li>
+      <p>Item#: {{id}}</p>
+      <p><b>{{content}}</b></p> 
+      <p>Done:{{completed}}</p> 
+    </li>
 
     {{!-- UPDATE COMPLETED STATUS --}}
-    <form method="POST" action="/todo/{{item.id}}/update">
+    <form method="POST" action="/todo/{{id}}/update">
       <label for="status"><b>Completed?</b></label>
       <select id="status" name="status">
         <option name="true" value="true">DONE</option>
@@ -18,7 +22,7 @@
     </form>
 
     {{!-- DELETE ITEM --}}
-    <form method="POST" action="/todo/{{item.id}}/delete">
+    <form method="POST" action="/todo/{{id}}/delete">
       <label for="delete"><b>Delete?</b></label>
       <input id="delete" type="submit" value="Delete Item"/>
     </form>
