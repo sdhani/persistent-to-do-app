@@ -16,6 +16,11 @@
       </select>
       <input type="submit" value="Save Changes"/>
     </form>
+
+    <form method="POST" action="/todo/{{item.id}}/delete">
+      <label for="delete"><b>Delete?</b></label>
+      <input id="delete" type="submit" value="Delete Item"/>
+    </form>
   {{/each}}
 </ul>
 

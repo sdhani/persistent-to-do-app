@@ -66,7 +66,7 @@ Router.post('/:id/update', async (req, res) => {
 	console.log(status);
 		try {
 			/* Switched format for Auth access */
-			const response = await axios({
+			await axios({
 				method: "PUT",
 				url: `${TODO_API_URL}/todo-item/${req.params.id}`,
 				headers: {
@@ -77,7 +77,7 @@ Router.post('/:id/update', async (req, res) => {
 				}
 			});
 
-			res.status(200).json(response.data);
+			res.status(200).redirect('/todo');
 	
 		}
 		catch (err) { 
@@ -85,8 +85,29 @@ Router.post('/:id/update', async (req, res) => {
 				message: `OH NO! :O Something went wrong... :/ ${err}`
 			});
 		}
+});
 
-	
+
+/* DELETE Todo-Item */
+Router.post('/:id/delete', async(req, res) => {
+	const { Authentication } = req.cookies;
+
+	try{
+		await axios.delete(`${TODO_API_URL}/todo-item/${req.params.id}`, {
+			headers: {
+				Cookie: `token=${Authentication}`
+			}
+		});
+		res.status(200).render('todo', {
+			message: `Item#${req.params.id} has been successfully deleted.`
+		});
+	} 
+	catch (err) {
+		res.render('todo', {
+			message: `OH NO! Looks like you will never be able to delete this to-do item!!! :O`
+		});
+	}
+
 });
 
 module.exports = Router;
