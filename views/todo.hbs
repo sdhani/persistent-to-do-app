@@ -6,9 +6,7 @@
   {{#each todoList}} 
     {{!-- Item Info --}}
     <li>
-      <p>Item#: {{id}}</p>
-      <p><b>{{content}}</b></p> 
-      <p>Done:{{completed}}</p> 
+      <h3>{{content}}  #{{id}}  ||  Done: <em>{{completed}}</em> </h3>
     </li>
 
     {{!-- UPDATE COMPLETED STATUS --}}
@@ -23,8 +21,15 @@
 
     {{!-- DELETE ITEM --}}
     <form method="POST" action="/todo/{{id}}/delete">
-      <label for="delete"><b>Delete?</b></label>
+      <label for="delete"><b>Delete?     </b></label>
       <input id="delete" type="submit" value="Delete Item"/>
+    </form>
+
+    {{!-- EDIT CONTENT --}}
+    <form method="POST"action="/todo/{{id}}/update">
+      <label for="edit"><b>Edit Content:</b></label>
+      <input type="text" id="edit" name="edit"/>
+      <input type="submit" value="Save Changes"/>
     </form>
 
   {{/each}}

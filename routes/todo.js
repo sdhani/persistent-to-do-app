@@ -61,9 +61,9 @@ Router.get('/:id', async (req, res, next) => {
 /* PUT Completed Status */
 Router.post('/:id/update', async (req, res) => {
 	const { Authentication } = req.cookies;
-	const { status, content } = req.body;
+	const { status, edit } = req.body;
 
-	console.log(status);
+	console.log(status, edit);
 		try {
 			/* Switched format for Auth access */
 			await axios({
@@ -73,7 +73,8 @@ Router.post('/:id/update', async (req, res) => {
 					Cookie: `token=${Authentication}`
 				},
 				data: {
-					completed: status === "true"
+					completed: status === "true",
+					content: edit
 				}
 			});
 
