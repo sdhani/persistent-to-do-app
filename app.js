@@ -2,7 +2,6 @@ const express = require('express');
 const exphbs = require('express-handlebars'); /* optimized handlebars for nodejs/express */
 const cookieParser = require('cookie-parser'); /* parse cookie res */
 const bodyParser = require('body-parser'); /* parse res body */
-const methodOverride = require('method-override');
 const logger = require('morgan'); /* dev tools */
 const fs = require('fs');  /* read/write */
 
