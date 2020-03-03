@@ -1,9 +1,8 @@
 const express = require('express');
 const exphbs = require('express-handlebars'); /* optimized handlebars for nodejs/express */
 const cookieParser = require('cookie-parser'); /* parse cookie res */
-const bodyParser = require('body-parser'); /* parse res body */
+const bodyParser = require('body-parser'); /* middleware; parse response body */
 const logger = require('morgan'); /* dev tools */
-const fs = require('fs');  /* read/write */
 
 const app = express();
 
@@ -18,10 +17,8 @@ app.engine('hbs', exphbs({
 }));
 
 app.set('view engine', 'hbs');
-
 app.use(logger("dev")); /* Use dev tools */
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false })); /* body-parser middleware */
 app.use(cookieParser()); /* Parse cookie */
 
 app.use("/", INDEX_ROUTES);
@@ -30,4 +27,4 @@ app.use("/todo", TODO_ROUTES);
 
 app.listen(3000, () => console.log('App listening on port 3000'));
 
-module.exports = app;
+module.exports = app; /* export app */
