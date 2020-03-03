@@ -1,13 +1,15 @@
 {{!-- views/login.hbs --}}
 
-<h1>Login: </h1>
-
+<h1><span style="color:#53C67D;">Login:</span></h1>
 <p>{{message}}</p>
+
 <form method="POST" action="/login">
   <label for="username">Username:</label><br>
   <input type="text" id="username" name="username" placeholder="username"/>
   <input type="submit"/>
 </form>
 
-<h3>New? <em>Register Here: </em></h3>
-<li><a href="/register">Register</a></li>
+<br><br>
+
+<h3><span style="color:#53C67D;">New? <em><a href="/register">Register Here!</a></em></span></h3>
+<a href="/">Home</a> 

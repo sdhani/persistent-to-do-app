@@ -1,10 +1,21 @@
 {{!-- views/todo.hbs --}}
 
-<h1>To Do List:</h1>
+<h1><span style="color:#53C67D;">To Do List:</span></h1>
 <p>{{message}}</p>
+
+{{!-- ADD NEW TO-DO ITEM --}}
+<form method="POST" action="/todo">
+  <label for="content"><h3>Add New To-Do:</h3></label>
+  <input type="text" id="content" name="content"/>
+  <input type="submit"/>
+</form>
+
+{{!-- Display To-Do List --}}
 <ul>
   {{#each todoList}} 
     {{!-- Item Info --}}
+    <p>_________________________________________________________</p>
+
     <li>
       <h3>{{content}}  #{{id}}  ||  <span style="color:purple;">Done: <em>{{completed}}</em></span> </h3>
     </li>
@@ -31,17 +42,9 @@
       <input type="text" id="edit" name="edit"/>
       <input type="submit" value="Save Changes"/>
     </form>
-  <p>_________________________________________________________</p>
   {{/each}}
 </ul>
 
-<br>
-<br>
-
-{{!-- ADD NEW TO-DO ITEM --}}
-<form method="POST" action="/todo">
-  <label for="content"><b>Add New To-Do:</b></label>
-  <input type="text" id="content" name="content"/>
-  <input type="submit"/>
-</form>
+<br><br>
+<a href="/">Home</a>
 

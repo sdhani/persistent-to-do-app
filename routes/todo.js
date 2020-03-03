@@ -63,29 +63,28 @@ Router.post('/:id/update', async (req, res) => {
 	const { Authentication } = req.cookies;
 	const { status, edit } = req.body;
 
-	console.log(status, edit);
-		try {
-			/* Switched format for Auth access */
-			await axios({
-				method: "PUT",
-				url: `${TODO_API_URL}/todo-item/${req.params.id}`,
-				headers: {
-					Cookie: `token=${Authentication}`
-				},
-				data: {
-					completed: status === "true",
-					content: edit
-				}
-			});
+	try {
+		/* Switched format for Auth access */
+		await axios({
+			method: "PUT",
+			url: `${TODO_API_URL}/todo-item/${req.params.id}`,
+			headers: {
+				Cookie: `token=${Authentication}`
+			},
+			data: {
+				completed: status === "true",
+				content: edit
+			}
+		});
 
-			res.status(200).redirect('/todo');
-	
-		}
-		catch (err) { 
-			res.render('todo', { 
-				message: `OH NO! :O Something went wrong... :/ ${err}`
-			});
-		}
+		res.status(200).redirect('/todo');
+
+	}
+	catch (err) { 
+		res.render('todo', { 
+			message: `OH NO! :O Something went wrong... :/ ${err}`
+		});
+	}
 });
 
 
@@ -99,9 +98,7 @@ Router.post('/:id/delete', async(req, res) => {
 				Cookie: `token=${Authentication}`
 			}
 		});
-		res.status(200).render('deleted', {
-			message: `Item#${req.params.id} has been successfully deleted.`
-		});
+		res.status(200).redirect('/todo');
 	} 
 	catch (err) {
 		res.render('todo', {
