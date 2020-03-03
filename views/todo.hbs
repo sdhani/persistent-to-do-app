@@ -1,6 +1,13 @@
 {{!-- views/todo.hbs --}}
 
-<h1><span style="color:#53C67D;">{{username}} To Do List:</span></h1>
+{{!-- Nav Bar --}}
+<div style="color:#53C67D;">
+  <a href="/login">Login</a> <br>
+  <a href="/logout">Logout</a> <br>
+  <a href="/register">Register Here!</a> <br>
+  <h1>{{username}} To Do List:</h1>
+<div>
+
 <p>{{message}}</p>
 
 {{!-- ADD NEW TO-DO ITEM --}}
@@ -44,7 +51,4 @@
     </form>
   {{/each}}
 </ul>
-
-<br><br>
-<a href="/">Home</a>
 

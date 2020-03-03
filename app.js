@@ -30,6 +30,7 @@ app.use("/todo", TODO_ROUTES);
 app.use("/users", USERS_ROUTE);
 
 
-app.listen(process.env.PORT);
+// app.listen(process.env.PORT);
+app.listen(3000);
 
 module.exports = app; /* export app */
