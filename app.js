@@ -27,6 +27,7 @@ app.use("/login", LOGIN_ROUTES);
 app.use("/todo", TODO_ROUTES);
 app.use("/users", USERS_ROUTE);
 
-app.listen(3000, () => console.log('App listening on port 3000'));
+
+app.listen(process.env.PORT);
 
 module.exports = app; /* export app */
