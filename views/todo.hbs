@@ -11,8 +11,8 @@
     <form method="POST" action="/todo/{{item.id}}/update">
       <label for="status"><b>Completed?</b></label>
       <select id="status" name="status">
-        <option name="true" value="true">TRUE</option>
-        <option name="false" value="false">FALSE</option>
+        <option name="true" value="true">DONE</option>
+        <option name="false" value="false">NOPE</option>
       </select>
       <input type="submit" value="Save Changes"/>
     </form>
@@ -21,6 +21,7 @@
       <label for="delete"><b>Delete?</b></label>
       <input id="delete" type="submit" value="Delete Item"/>
     </form>
+
   {{/each}}
 </ul>
 

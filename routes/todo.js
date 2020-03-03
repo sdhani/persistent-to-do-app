@@ -20,8 +20,8 @@ Router.get('/', async (req, res, next) => {
 				message: ':O Oh no, you have nothing to-do! Add something to-do below.'
 			}); 
 		}else{
-			res.render('todo', { 
-				message: 'Tsk Tsk Tsk. It looks like your not signed in. Not. Cool. Bro.'
+			res.render('login', { 
+				message: 'Tsk Tsk Tsk. It looks like your not signed in. Please sign in below, or register.'
 			}); 
 		}
 	}
