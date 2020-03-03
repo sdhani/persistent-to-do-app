@@ -27,5 +27,8 @@
     "hbs": "^4.1.0",
     "morgan": "^1.9.1",
     "mustache": "^4.0.0"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
   }
 }

@@ -3,7 +3,9 @@ const exphbs = require('express-handlebars'); /* optimized handlebars for nodejs
 const cookieParser = require('cookie-parser'); /* parse cookie res */
 const bodyParser = require('body-parser'); /* middleware; parse response body */
 const logger = require('morgan'); /* dev tools */
+const dotenv = require('dotenv');
 
+dotenv.config();
 const app = express();
 
 /* Routes */
