@@ -10,6 +10,7 @@ const app = express();
 const INDEX_ROUTES = require("./routes/index");
 const LOGIN_ROUTES = require("./routes/login");
 const TODO_ROUTES = require("./routes/todo");
+const USERS_ROUTE = require("./routes/users");
 
 /* Set view */
 app.engine('hbs', exphbs({
@@ -24,6 +25,7 @@ app.use(cookieParser()); /* Parse cookie */
 app.use("/", INDEX_ROUTES);
 app.use("/login", LOGIN_ROUTES);
 app.use("/todo", TODO_ROUTES);
+app.use("/users", USERS_ROUTE);
 
 app.listen(3000, () => console.log('App listening on port 3000'));
 
