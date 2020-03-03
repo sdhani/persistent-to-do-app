@@ -1,12 +1,27 @@
-<h1>To Do List:</h1>
+<h1>{{username}} To Do List:</h1>
+<p>{{message}}</p>
 <ul>
-  {{#each todoList}} 
-    <li>{{id}}|{{content}} | {{completed}} | {{deleted}} | {{user_id}}</li>
+  {{#each todoList as |item|}} 
+    <li>
+      {{item.id}}|
+      {{item.content}} | 
+       C: {{item.completed}} | 
+       D: {{item.deleted}}
+    </li>
+    <form method="POST" action="/todo/{{item.id}}/update">
+      <label for="status"><b>Completed?</b></label>
+      <select id="status" name="status">
+        <option name="true" value="true">TRUE</option>
+        <option name="false" value="false">FALSE</option>
+      </select>
+      <input type="submit" value="Save Changes"/>
+    </form>
   {{/each}}
-
-  <form method="POST" action="/todo">
-    <label for="content">Add New Todo:</label>
-    <input type="text" id="content" name="content"/>
-    <input type="submit"/>
-  </form>
 </ul>
+
+<form method="POST" action="/todo">
+  <label for="content">Add New Todo:</label>
+  <input type="text" id="content" name="content"/>
+  <input type="submit"/>
+</form>
+

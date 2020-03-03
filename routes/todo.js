@@ -5,22 +5,43 @@ const TODO_API_URL = "https://hunter-todo-api.herokuapp.com";
 
 Router.get('/', async (req, res, next) => {
 	const { Authentication } = req.cookies;
-	if(Authentication) {
-		try {
-			const response = await axios.get(`${TODO_API_URL}/todo-item`, { 
-				headers: {
-					Cookie: `token=${Authentication}`
-				}
-			});
-			res.status(200).render('todo', { todoList: response.data });
+	try {
+		const response = await axios.get(`${TODO_API_URL}/todo-item`, { 
+			headers: {
+				Cookie: `token=${Authentication}`
+			}
+		});
+		res.status(200).render('todo', { todoList: response.data });
+	}
+	catch (err) { 
+		/* Username TBA */
+		if(Authentication !== undefined){
+			res.render('todo', { 
+				message: ':O Oh no, you have nothing to-do! Add something to-do below.'
+			}); 
+		}else{
+			res.render('todo', { 
+				message: 'Tsk Tsk Tsk. It looks like your not signed in. Not. Cool. Bro.'
+			}); 
 		}
-		catch (err) { console.log(err); }
-
-	} else {
-		res.render('error');
 	}
 });
 
+
+/* POST New Todo-Item */
+Router.post('/', async(req, res, next) => {
+	const { Authentication } = req.cookies;
+	const { content } = req.body;
+	try {
+		const response = await axios.post(`${TODO_API_URL}/todo-item`, { content }, {
+			headers: {
+				Cookie: `token=${Authentication}`
+			}
+		});
+		res.status(200).redirect('/todo');
+	}
+	catch (err) { console.log(err); }
+});
 
 /* GET Todo-Item By ID */
 Router.get('/:id', async (req, res, next) => {
@@ -37,20 +58,35 @@ Router.get('/:id', async (req, res, next) => {
 });
 
 
-
-/* POST New Todo-Item */
-Router.post('/', async(req, res, next) => {
+/* PUT Completed Status */
+Router.post('/:id/update', async (req, res) => {
 	const { Authentication } = req.cookies;
-	const { content } = req.body;
-	try {
-		const response = await axios.post(`${TODO_API_URL}/todo-item`, { content: content }, {
-			headers: {
-				Cookie: `token=${Authentication}`
-			}
-		});
-		res.status(200).redirect('/todo');
-	}
-	catch (err) { console.log(err); }
+	const { status, content } = req.body;
+
+	console.log(status);
+		try {
+			/* Switched format for Auth access */
+			const response = await axios({
+				method: "PUT",
+				url: `${TODO_API_URL}/todo-item/${req.params.id}`,
+				headers: {
+					Cookie: `token=${Authentication}`
+				},
+				data: {
+					completed: status === "true"
+				}
+			});
+
+			res.status(200).json(response.data);
+	
+		}
+		catch (err) { 
+			res.render('todo', { 
+				message: `OH NO! :O Something went wrong... :/ ${err}`
+			});
+		}
+
+	
 });
 
 module.exports = Router;
