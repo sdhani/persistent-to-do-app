@@ -1,13 +1,13 @@
-<h1>{{username}} To Do List:</h1>
+{{!-- views/todo.hbs --}}
+
+<h1>To Do List:</h1>
 <p>{{message}}</p>
 <ul>
   {{#each todoList as |item|}} 
-    <li>
-      {{item.id}}|
-      {{item.content}} | 
-       C: {{item.completed}} | 
-       D: {{item.deleted}}
-    </li>
+    {{!-- Item Info --}}
+    <li>{{item.id}} | {{item.content}} | Done:{{item.completed}}</li>
+
+    {{!-- UPDATE COMPLETED STATUS --}}
     <form method="POST" action="/todo/{{item.id}}/update">
       <label for="status"><b>Completed?</b></label>
       <select id="status" name="status">
@@ -17,6 +17,7 @@
       <input type="submit" value="Save Changes"/>
     </form>
 
+    {{!-- DELETE ITEM --}}
     <form method="POST" action="/todo/{{item.id}}/delete">
       <label for="delete"><b>Delete?</b></label>
       <input id="delete" type="submit" value="Delete Item"/>
@@ -25,8 +26,10 @@
   {{/each}}
 </ul>
 
+
+{{!-- ADD NEW TO-DO ITEM --}}
 <form method="POST" action="/todo">
-  <label for="content">Add New Todo:</label>
+  <label for="content">Add New To-Do:</label>
   <input type="text" id="content" name="content"/>
   <input type="submit"/>
 </form>
