@@ -11,7 +11,7 @@ Router.get('/', async (req, res, next) => {
 				Cookie: `token=${Authentication}`
 			}
 		});
-		res.status(200).render('todo', { todoList: response.data });
+		res.status(200).render('todo', { todoList: response.data.filter((item) => !item.deleted) });
 	}
 	catch (err) { 
 		/* Username TBA */
