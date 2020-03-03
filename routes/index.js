@@ -3,7 +3,8 @@ const Router = require('express').Router();
 const axios = require("axios");
 const TODO_API_URL = "https://hunter-todo-api.herokuapp.com";
 
-/* GET Landing Page */
+
+/* GET Home Page */
 Router.get('/', async (req, res, next) => {
   try { res.render('home'); } 
   catch (err) { console.log(err); }
@@ -27,7 +28,7 @@ Router.post('/register', async (req, res) => {
   catch (err) { 
     res.status(200).render('register-user', {
       message: `The user ${username} already exists.`
-    })  
+    });
   }
 });
 
@@ -36,10 +37,10 @@ Router.post('/register', async (req, res) => {
 Router.get('/logout', async(req, res, next) => {
   try {
     res.clearCookie('Authentication');
-    console.log('Logged Out :)');
     res.status(200).redirect('/login');
   }
   catch (err) { console.log(err); }
 });
 
-module.exports = Router;
+
+module.exports = Router; /* export Router */
