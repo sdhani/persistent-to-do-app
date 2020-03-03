@@ -6,25 +6,20 @@ const TODO_API_URL = "https://hunter-todo-api.herokuapp.com";
 
 /* GET To-Do List */
 Router.get('/', async (req, res) => {
-	const { Authentication } = req.cookies;
+	const { Authentication, Username } = req.cookies;
 	try {
 		const response = await axios.get(`${TODO_API_URL}/todo-item`, { 
 			headers: {
-				Cookie: `token=${Authentication}`
+				Cookie: `token=${Authentication}, username=${Username}`
 			}
 		});
-		res.status(200).render('todo', { todoList: response.data.filter((item) => !item.deleted) });
+		res.status(200).render('todo', { todoList: response.data.filter((item) => !item.deleted), username: Username });
 	}
 	catch (err) { 
-		/* Username TBA */
 		if(Authentication !== undefined){
-			res.render('todo', { 
-				message: ':O Oh no, you have nothing to-do! Add something to-do below.'
-			}); 
+			res.render('todo', {	message: ':O Oh no, you have nothing to-do! Add something to-do below.'}); 
 		}else{
-			res.render('login', { 
-				message: 'Tsk Tsk Tsk. It looks like your not signed in. Please sign in below, or register.'
-			}); 
+			res.render('todo', { message: 'Tsk Tsk Tsk. It looks like your not signed in. Please sign in OR register.'}); 
 		}
 	}
 });
@@ -42,7 +37,7 @@ Router.post('/', async(req, res) => {
 		});
 		res.status(200).redirect('/todo');
 	}
-	catch (err) { console.log(err); }
+	catch (err) { res.render('todo', { message: 'Tsk Tsk Tsk. It looks like your not signed in. Please sign in OR register.'});  }
 });
 
 

@@ -23,7 +23,7 @@ Router.post('/register', async (req, res) => {
   const { username } = req.body;
   try {
     await axios.post(`${TODO_API_URL}/user`, { username });
-    res.status(200).redirect('/todo');
+    res.status(200).redirect('/');
   }
   catch (err) { 
     res.status(200).render('register-user', {
