@@ -19,7 +19,6 @@ app.engine('hbs', exphbs({
 
 app.set('view engine', 'hbs');
 
-app.use(methodOverride('_method'));
 app.use(logger("dev")); /* Use dev tools */
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
