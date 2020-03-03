@@ -98,7 +98,7 @@ Router.post('/:id/delete', async(req, res) => {
 				Cookie: `token=${Authentication}`
 			}
 		});
-		res.status(200).render('todo', {
+		res.status(200).render('deleted', {
 			message: `Item#${req.params.id} has been successfully deleted.`
 		});
 	} 
