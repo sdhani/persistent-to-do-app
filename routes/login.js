@@ -5,14 +5,14 @@ const TODO_API_URL = "https://hunter-todo-api.herokuapp.com";
 
 
 /* GET Login Page */
-Router.get('/', async (req, res, next) => {
+Router.get('/', async (req, res) => {
   try { res.render('login'); } 
   catch (err) { console.log(err); }
 });
 
 
 /* POST Login User */
-Router.post('/', async (req, res, next) => {
+Router.post('/', async (req, res) => {
   const { username } = req.body;
   try{
     const userToken = await axios.post(`${TODO_API_URL}/auth`, { username });    

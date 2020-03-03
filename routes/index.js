@@ -5,14 +5,14 @@ const TODO_API_URL = "https://hunter-todo-api.herokuapp.com";
 
 
 /* GET Home Page */
-Router.get('/', async (req, res, next) => {
+Router.get('/', async (req, res) => {
   try { res.render('home'); } 
   catch (err) { console.log(err); }
 });
 
 
 /* GET Register-User Page */
-Router.get('/register', async (req, res, next) => {
+Router.get('/register', async (req, res) => {
   try { res.render('register-user'); } 
   catch (err) { console.log(err); }
 });
@@ -34,7 +34,7 @@ Router.post('/register', async (req, res) => {
 
 
 /* GET Logout User  | Requires a Refresh to Update Cookies, redirect is not sufficient */
-Router.get('/logout', async(req, res, next) => {
+Router.get('/logout', async(req, res) => {
   try {
     res.clearCookie('Authentication');
     res.status(200).redirect('/login');

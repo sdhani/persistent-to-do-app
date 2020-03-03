@@ -3,7 +3,9 @@ const Router = require("express").Router();
 const axios = require("axios");
 const TODO_API_URL = "https://hunter-todo-api.herokuapp.com";
 
-Router.get('/', async (req, res, next) => {
+
+/* GET To-Do List */
+Router.get('/', async (req, res) => {
 	const { Authentication } = req.cookies;
 	try {
 		const response = await axios.get(`${TODO_API_URL}/todo-item`, { 
@@ -29,11 +31,11 @@ Router.get('/', async (req, res, next) => {
 
 
 /* POST New Todo-Item */
-Router.post('/', async(req, res, next) => {
+Router.post('/', async(req, res) => {
 	const { Authentication } = req.cookies;
 	const { content } = req.body;
 	try {
-		const response = await axios.post(`${TODO_API_URL}/todo-item`, { content }, {
+		await axios.post(`${TODO_API_URL}/todo-item`, { content }, {
 			headers: {
 				Cookie: `token=${Authentication}`
 			}
@@ -43,8 +45,9 @@ Router.post('/', async(req, res, next) => {
 	catch (err) { console.log(err); }
 });
 
-/* GET Todo-Item By ID */
-Router.get('/:id', async (req, res, next) => {
+
+/* GET Todo-Item By ID [TESTING] */
+Router.get('/:id', async (req, res) => {
 	const { Authentication } = req.cookies;
 	try {
 		const response = await axios.get(`${TODO_API_URL}/todo-item/${req.params.id}`, {
@@ -62,7 +65,6 @@ Router.get('/:id', async (req, res, next) => {
 Router.post('/:id/update', async (req, res) => {
 	const { Authentication } = req.cookies;
 	const { status, edit } = req.body;
-
 	try {
 		/* Switched format for Auth access */
 		await axios({
@@ -76,14 +78,10 @@ Router.post('/:id/update', async (req, res) => {
 				content: edit
 			}
 		});
-
 		res.status(200).redirect('/todo');
-
 	}
 	catch (err) { 
-		res.render('todo', { 
-			message: `OH NO! :O Something went wrong... :/ ${err}`
-		});
+		res.render('todo', { message: `OH NO! :O Something went wrong... :/ ${err}`});
 	}
 });
 
@@ -91,7 +89,6 @@ Router.post('/:id/update', async (req, res) => {
 /* DELETE Todo-Item */
 Router.post('/:id/delete', async(req, res) => {
 	const { Authentication } = req.cookies;
-
 	try{
 		await axios.delete(`${TODO_API_URL}/todo-item/${req.params.id}`, {
 			headers: {
@@ -101,12 +98,10 @@ Router.post('/:id/delete', async(req, res) => {
 		res.status(200).redirect('/todo');
 	} 
 	catch (err) {
-		res.render('todo', {
-			message: `OH NO! Looks like you will never be able to delete this to-do item!!! :O`
-		});
+		res.render('todo', { message: `OH NO! Looks like you will never be able to delete this to-do item!!! :O`});
 	}
-
 });
 
-module.exports = Router;
+
+module.exports = Router; /* export Router */
 
