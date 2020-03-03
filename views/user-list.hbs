@@ -1,9 +1,2 @@
 <h1>Users</h1>
-
-<ul>
-  {{#each users}}
-    <li>
-      <a href='/users?username'+ {{username}}>{{username}}</a>
-    </li>
-  {{/each}}
-</ul>
+<ul>{{#each users}}<li>{{username}}</li>{{/each}}</ul>
