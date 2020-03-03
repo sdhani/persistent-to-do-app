@@ -6,7 +6,7 @@
   {{#each todoList}} 
     {{!-- Item Info --}}
     <li>
-      <h3>{{content}}  #{{id}}  ||  Done: <em>{{completed}}</em> </h3>
+      <h3>{{content}}  #{{id}}  ||  <span style="color:purple;">Done: <em>{{completed}}</em></span> </h3>
     </li>
 
     {{!-- UPDATE COMPLETED STATUS --}}
@@ -31,14 +31,16 @@
       <input type="text" id="edit" name="edit"/>
       <input type="submit" value="Save Changes"/>
     </form>
-
+  <p>_________________________________________________________</p>
   {{/each}}
 </ul>
 
+<br>
+<br>
 
 {{!-- ADD NEW TO-DO ITEM --}}
 <form method="POST" action="/todo">
-  <label for="content">Add New To-Do:</label>
+  <label for="content"><b>Add New To-Do:</b></label>
   <input type="text" id="content" name="content"/>
   <input type="submit"/>
 </form>
