@@ -1,5 +1,5 @@
 # Persistent-To-Do-App
-A web application that uses the [TO-DO API](https://hunter-todo-api.herokuapp.com) keep's track of a specific user's to-do list even after refreshing the page or making changes to the list. 
+A web application that uses the *[To-Do API](https://hunter-todo-api.herokuapp.com)* keep's track of a specific user's to-do list even after refreshing the page or making changes to the list. 
 
 ---
 
