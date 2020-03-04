@@ -23,7 +23,11 @@ Router.post('/register', async (req, res) => {
   const { username } = req.body;
   try {
     await axios.post(`${TODO_API_URL}/user`, { username });
-    res.status(200).redirect('/');
+    /* Login new user */
+    const userToken = await axios.post(`${TODO_API_URL}/auth`, { username });    
+    res.cookie('Authentication', userToken.data.token, { httpOnly: true });
+    res.cookie('Username', username, { httpOnly: true });
+    res.status(200).redirect('/todo');
   }
   catch (err) { 
     res.status(200).render('register-user', {
